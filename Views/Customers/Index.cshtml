@@ -1,0 +1,90 @@
+@model IEnumerable<AppRH.Models.Customer>
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create" class="btn btn-info">Agregar Nuevo Cliente</a>
+</p>
+<table class="table table-dark table-sm">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerSurname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerDNI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerBirthDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerSurname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerDNI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerBirthDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CustomerID" class="btn btn-warning">Editar</a> |
+                <a onclick="eliminarCliente(@item.CustomerID)" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+<script>
+    function eliminarCliente(id){
+       Swal.fire({
+                title: '¿Estas seguro?',
+                text: "¡No hay vuelta atras!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, borrar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                'Eliminado',
+                'Se ha borrado correctamente.',
+                'success'
+                )
+                function redirigir (){
+                    location.href = "../../Customers/DeleteConfirmed/" + id; 
+                }
+            }
+         setTimeout (redirigir, 4000);    
+        })
+    }
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+@model IEnumerable<AppRH.Models.House>
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p class="d-flex justify-content-end">
+    <a asp-action="Create" class="btn btn-info">Agregar Casa</a>
+</p>
+<table class="table table-dark table-sm">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HouseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HouseAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnerHouse)
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.EstaAlquilada) *@
+                Casa Disponible
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhotoHouse)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HouseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HouseAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OwnerHouse)
+            </td>
+               <td>
+                @Html.DisplayFor(modelItem => item.EstaAlquilada)
+            </td>
+            <td>
+                        @{
+                            var base64 = Convert.ToBase64String(item.PhotoHouse);
+                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        }
+                        <img src="@imgSrc" class="imghouse" />
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.HouseID" class="btn btn-warning">Editar</a> |
+                <a onclick="eliminarCasa(@item.HouseID)" class="btn btn-danger">Borrar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<script>
+    function eliminarCasa(id){
+       Swal.fire({
+                title: '¿Estas seguro?',
+                text: "¡No hay vuelta atras!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, borrar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                'Eliminado',
+                'Se ha borrado correctamente.',
+                'success'
+                )
+                function redirigir (){
+                    location.href = "../../Houses/DeleteConfirmed/" + id; 
+                }
+            }
+         setTimeout (redirigir, 4000);    
+        })
+    }
+</script>
+</body>
+</html>

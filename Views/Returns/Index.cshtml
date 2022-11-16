@@ -1,0 +1,48 @@
+@model IEnumerable<AppRH.Models.Return>
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create" class="btn btn-info">Nueva Devolución</a>
+</p>
+<table class="table table-dark table-sm">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnDate)
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.Customer) *@
+                Cliente
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.CustomerName)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.ReturnID" class="btn btn-warning">Detalles</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>
