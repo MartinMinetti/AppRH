@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppRH.Migrations
 {
     [DbContext(typeof(AppRHContext))]
-    [Migration("20221116223324_PrimeraMigraciones")]
-    partial class PrimeraMigraciones
+    [Migration("20221117040853_RestauracionMigrations")]
+    partial class RestauracionMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -100,6 +100,18 @@ namespace AppRH.Migrations
                     b.Property<int>("CustomerID")
                         .HasColumnType("int");
 
+                    b.Property<string>("CustomerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerSurname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HouseID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HouseName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("RentalDate")
                         .HasColumnType("datetime2");
 
@@ -107,52 +119,9 @@ namespace AppRH.Migrations
 
                     b.HasIndex("CustomerID");
 
-                    b.ToTable("Rental");
-                });
-
-            modelBuilder.Entity("AppRH.Models.RentalDetail", b =>
-                {
-                    b.Property<int>("RentalDetailID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RentalDetailID"), 1L, 1);
-
-                    b.Property<int>("HouseID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("HouseName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RentalID")
-                        .HasColumnType("int");
-
-                    b.HasKey("RentalDetailID");
-
                     b.HasIndex("HouseID");
 
-                    b.HasIndex("RentalID");
-
-                    b.ToTable("RentalDetail");
-                });
-
-            modelBuilder.Entity("AppRH.Models.RentalDetailTemp", b =>
-                {
-                    b.Property<int>("RentalDetailTempID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RentalDetailTempID"), 1L, 1);
-
-                    b.Property<int>("HouseID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("HouseName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RentalDetailTempID");
-
-                    b.ToTable("RentalDetailTemp");
+                    b.ToTable("Rental");
                 });
 
             modelBuilder.Entity("AppRH.Models.Return", b =>
@@ -166,6 +135,18 @@ namespace AppRH.Migrations
                     b.Property<int>("CustomerID")
                         .HasColumnType("int");
 
+                    b.Property<string>("CustomerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerSurname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HouseID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HouseName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("ReturnDate")
                         .HasColumnType("datetime2");
 
@@ -173,52 +154,9 @@ namespace AppRH.Migrations
 
                     b.HasIndex("CustomerID");
 
-                    b.ToTable("Return");
-                });
-
-            modelBuilder.Entity("AppRH.Models.ReturnDetail", b =>
-                {
-                    b.Property<int>("ReturnDetailID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReturnDetailID"), 1L, 1);
-
-                    b.Property<int>("HouseID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("HouseName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ReturnID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ReturnDetailID");
-
                     b.HasIndex("HouseID");
 
-                    b.HasIndex("ReturnID");
-
-                    b.ToTable("ReturnDetail");
-                });
-
-            modelBuilder.Entity("AppRH.Models.ReturnDetailTemp", b =>
-                {
-                    b.Property<int>("ReturnDetailTempID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReturnDetailTempID"), 1L, 1);
-
-                    b.Property<int>("HouseID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("HouseName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ReturnDetailTempID");
-
-                    b.ToTable("ReturnDetailTemp");
+                    b.ToTable("Return");
                 });
 
             modelBuilder.Entity("AppRH.Models.Rental", b =>
@@ -229,26 +167,15 @@ namespace AppRH.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("AppRH.Models.RentalDetail", b =>
-                {
                     b.HasOne("AppRH.Models.House", "House")
-                        .WithMany("RentalDetails")
+                        .WithMany()
                         .HasForeignKey("HouseID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AppRH.Models.Rental", "Rental")
-                        .WithMany("RentalDetails")
-                        .HasForeignKey("RentalID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Customer");
 
                     b.Navigation("House");
-
-                    b.Navigation("Rental");
                 });
 
             modelBuilder.Entity("AppRH.Models.Return", b =>
@@ -259,26 +186,15 @@ namespace AppRH.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("AppRH.Models.ReturnDetail", b =>
-                {
                     b.HasOne("AppRH.Models.House", "House")
-                        .WithMany("ReturnDetails")
+                        .WithMany()
                         .HasForeignKey("HouseID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AppRH.Models.Return", "Return")
-                        .WithMany("ReturnDetails")
-                        .HasForeignKey("ReturnID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Customer");
 
                     b.Navigation("House");
-
-                    b.Navigation("Return");
                 });
 
             modelBuilder.Entity("AppRH.Models.Customer", b =>
@@ -286,23 +202,6 @@ namespace AppRH.Migrations
                     b.Navigation("Rentals");
 
                     b.Navigation("Returns");
-                });
-
-            modelBuilder.Entity("AppRH.Models.House", b =>
-                {
-                    b.Navigation("RentalDetails");
-
-                    b.Navigation("ReturnDetails");
-                });
-
-            modelBuilder.Entity("AppRH.Models.Rental", b =>
-                {
-                    b.Navigation("RentalDetails");
-                });
-
-            modelBuilder.Entity("AppRH.Models.Return", b =>
-                {
-                    b.Navigation("ReturnDetails");
                 });
 #pragma warning restore 612, 618
         }

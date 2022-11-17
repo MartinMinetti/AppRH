@@ -13,17 +13,19 @@
 </head>
 <body>
 <p>
-    <a asp-action="Create" class="btn btn-info">Nueva Devolución</a>
+    <a asp-action="Create">Create New</a>
 </p>
-<table class="table table-dark table-sm">
+<table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.ReturnDate)
             </th>
             <th>
-                @* @Html.DisplayNameFor(model => model.Customer) *@
-                Cliente
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HouseName)
             </th>
             <th></th>
         </tr>
@@ -35,10 +37,13 @@
                 @Html.DisplayFor(modelItem => item.ReturnDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Customer.CustomerName)
+                @Html.DisplayFor(modelItem => item.CustomerName)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.ReturnID" class="btn btn-warning">Detalles</a> 
+                @Html.DisplayFor(modelItem => item.HouseName)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.ReturnID">Details</a>
             </td>
         </tr>
 }

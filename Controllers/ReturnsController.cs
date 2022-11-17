@@ -21,7 +21,7 @@ namespace AppRH.Controllers
         // GET: Returns
         public async Task<IActionResult> Index()
         {
-            var appRHContext = _context.Return.Include(r => r.Customer);
+            var appRHContext = _context.Return.Include(r => r.Customer).Include(r => r.House);
             return View(await appRHContext.ToListAsync());
         }
 
@@ -35,6 +35,7 @@ namespace AppRH.Controllers
 
             var @return = await _context.Return
                 .Include(r => r.Customer)
+                .Include(r => r.House)
                 .FirstOrDefaultAsync(m => m.ReturnID == id);
             if (@return == null)
             {
@@ -48,7 +49,7 @@ namespace AppRH.Controllers
         public IActionResult Create()
         {
             ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "CustomerName");
-            ViewData["HouseID"] = new SelectList(_context.House.Where(x => x.EstaAlquilada == true && x.IsDeleted == false), "HouseID", "HouseName");
+            ViewData["HouseID"] = new SelectList(_context.House, "HouseID", "HouseName");
             return View();
         }
 
@@ -57,50 +58,97 @@ namespace AppRH.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReturnID,ReturnDate,CustomerID")] Return Return)
+        public async Task<IActionResult> Create([Bind("ReturnID,ReturnDate,CustomerID,CustomerName,CustomerSurname,HouseID,HouseName")] Return @return)
         {
             if (ModelState.IsValid)
             {
-                using (var transaccion = _context.Database.BeginTransaction())
+                try
                 {
-                    try
+                    var ClienteID = (from a in _context.Rental where a.CustomerID == @return.CustomerID && a.CustomerID == @return.CustomerID select a).SingleOrDefault();
+                    if(ClienteID != null)
                     {
-                        _context.Add(Return);
-                        await _context.SaveChangesAsync();
-
-                        var housesTemp = (from a in _context.ReturnDetailTemp select a).ToList();
-                        foreach (var item in housesTemp)
+                        if(ClienteID.RentalDate < @return.ReturnDate)
                         {
-                            var details = new ReturnDetail
-                            {
-                                ReturnID = Return.ReturnID,
-                                HouseID = item.HouseID,
-                                HouseName = item.HouseName
-                            };
-                            _context.ReturnDetail.Add(details);
-                            _context.SaveChanges();
+                            var House = (from a in _context.House where a.HouseID == @return.HouseID select a).SingleOrDefault();
+                            var Cliente = (from a in _context.Customer where a.CustomerID == @return.CustomerID select a).SingleOrDefault();
+
+                            @return.HouseName = House.HouseName;
+                            @return.CustomerName = Cliente.CustomerName + " " + Cliente.CustomerSurname;
+                            @return.CustomerID = Cliente.CustomerID;
+                            @return.HouseID = House.HouseID;
+                            House.EstaAlquilada = false;
+
+                            _context.Add(@return);
+                            await _context.SaveChangesAsync();
+                            return RedirectToAction(nameof(Index));
                         }
-
-                        _context.ReturnDetailTemp.RemoveRange(housesTemp);
-                        _context.SaveChanges();
-                        transaccion.Commit();
-
-                        return RedirectToAction(nameof(Index));
-                    }
-                    catch (System.Exception ex)
-                    {
-                        transaccion.Rollback();
-                        var error = ex;               
                     }
                 }
+                catch (System.Exception ex){
+                    var error = ex;
+                }
             }
-            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "CustomerDNI", Return.CustomerID);
-            ViewData["HouseID"] = new SelectList(_context.House, "HouseID", "HouseName");
-            ViewData["HouseID"] = new SelectList(_context.House.Where(x => x.EstaAlquilada == true && x.IsDeleted == false), "HouseID", "HouseName");
-            return View(Return);
+            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "CustomerName", @return.CustomerID);
+            ViewData["RentalID"] = new SelectList(_context.Rental, "RentalID", "CasaID", "ClienteID");
+            ViewData["HouseID"] = new SelectList(_context.House.Where(x => x.EstaAlquilada == true && x.IsDeleted == false), "HouseID", "HouseName", @return.HouseID);
+            return View(@return);
         }
 
-      
+        // GET: Returns/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || _context.Return == null)
+            {
+                return NotFound();
+            }
+
+            var @return = await _context.Return.FindAsync(id);
+            if (@return == null)
+            {
+                return NotFound();
+            }
+            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "CustomerDNI", @return.CustomerID);
+            ViewData["HouseID"] = new SelectList(_context.House, "HouseID", "HouseName", @return.HouseID);
+            return View(@return);
+        }
+
+        // POST: Returns/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ReturnID,ReturnDate,CustomerID,CustomerName,CustomerSurname,HouseID,HouseName")] Return @return)
+        {
+            if (id != @return.ReturnID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(@return);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ReturnExists(@return.ReturnID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "CustomerDNI", @return.CustomerID);
+            ViewData["HouseID"] = new SelectList(_context.House, "HouseID", "HouseName", @return.HouseID);
+            return View(@return);
+        }
+
         // GET: Returns/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -111,6 +159,7 @@ namespace AppRH.Controllers
 
             var @return = await _context.Return
                 .Include(r => r.Customer)
+                .Include(r => r.House)
                 .FirstOrDefaultAsync(m => m.ReturnID == id);
             if (@return == null)
             {
@@ -120,136 +169,24 @@ namespace AppRH.Controllers
             return View(@return);
         }
 
-        public JsonResult AddHouseReturn(int HouseID)
+        // POST: Returns/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var resultado = true;
-
-            using (var transaccion = _context.Database.BeginTransaction())
+            if (_context.Return == null)
             {
-                try
-                {
-                    var house = (from a in _context.House where a.HouseID == HouseID select a).SingleOrDefault();
-                    house.EstaAlquilada = false;
-                    _context.SaveChanges();
-
-                    var houseTemp = new ReturnDetailTemp
-                    {
-                        HouseID = HouseID,
-                        HouseName = house.HouseName
-                    };
-                    _context.ReturnDetailTemp.Add(houseTemp);
-                    _context.SaveChanges();
-
-                    transaccion.Commit();
-                }    
-                catch (System.Exception)
-                {
-                    transaccion.Rollback();
-                    resultado = false;
-                }
+                return Problem("Entity set 'AppRHContext.Return'  is null.");
             }
-
-
-            ViewData["HouseID"] = new SelectList(_context.House.Where(x => x.EstaAlquilada == true), "HouseID", "HouseName");
-
-            return Json(resultado);
-        }
-
-        public JsonResult CancelReturn()
-        {
-            var resultado = true;
-
-            using (var transaccion = _context.Database.BeginTransaction())
+            var @return = await _context.Return.FindAsync(id);
+            if (@return != null)
             {
-                try
-                {
-                    var returnTemp = (from a in _context.ReturnDetailTemp select a).ToList();
-                   
-                   foreach (var item in returnTemp)
-                   {
-                        var house = (from a in _context.House where a.HouseID == item.HouseID select a).SingleOrDefault();
-                        house.EstaAlquilada = true;
-                        _context.SaveChanges();
-                   }
-                   _context.ReturnDetailTemp.RemoveRange(returnTemp);
-                   _context.SaveChanges();
-
-                    transaccion.Commit();
-                }    
-                catch (System.Exception)
-                {
-                    transaccion.Rollback();
-                    resultado = false;
-                }
-            }
-
-            return Json(resultado);
-        }
-
-
-         public JsonResult SearchHouseReturnTemp()
-        {
-           
-           List<ReturnDetailTemp> ListadoHouseReturnTemp = new List<ReturnDetailTemp>();
-
-           var returnDetailTemp = (from a in _context.ReturnDetailTemp select a).ToList();
-            foreach (var item in returnDetailTemp)
-            {
-                ListadoHouseReturnTemp.Add(item);  
+                _context.Return.Remove(@return);
             }
             
-            return Json(ListadoHouseReturnTemp );
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
-
-
-          public JsonResult SearchReturnHouse(int ReturnID)
-        {
-           
-           List<ReturnDetail> ListadoHouseReturn = new List<ReturnDetail>();
-
-           var returnDetail = (from a in _context.ReturnDetail where a.ReturnID == ReturnID select a).ToList();
-            foreach (var item in returnDetail)
-            {
-                ListadoHouseReturn.Add(item);  
-            }
-            
-            return Json(ListadoHouseReturn);
-        }
-
-
-        public JsonResult QuitarHouseReturn(int HouseID)
-        {
-            var resultado = true;
-
-            using (var transaccion = _context.Database.BeginTransaction())
-            {
-                try
-                {
-                   
-                    var house = (from a in _context.House where a.HouseID == HouseID select a).SingleOrDefault();
-                    house.EstaAlquilada = true;
-                    _context.SaveChanges();
-                   
-
-
-                    var returnTemp = (from a in _context.ReturnDetailTemp where a.HouseID == HouseID select a).SingleOrDefault();
-                   _context.ReturnDetailTemp.RemoveRange(returnTemp);
-                   _context.SaveChanges();
-
-                    transaccion.Commit();
-                }    
-                catch (System.Exception)
-                {
-                    transaccion.Rollback();
-                    resultado = false;
-                }
-            }
-
-            return Json(resultado);
-        }
-
-
-
 
         private bool ReturnExists(int id)
         {

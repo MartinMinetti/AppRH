@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AppRH.Migrations
 {
-    public partial class PrimeraMigraciones : Migration
+    public partial class RestauracionMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,41 +44,17 @@ namespace AppRH.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RentalDetailTemp",
-                columns: table => new
-                {
-                    RentalDetailTempID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    HouseID = table.Column<int>(type: "int", nullable: false),
-                    HouseName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RentalDetailTemp", x => x.RentalDetailTempID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ReturnDetailTemp",
-                columns: table => new
-                {
-                    ReturnDetailTempID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    HouseID = table.Column<int>(type: "int", nullable: false),
-                    HouseName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ReturnDetailTemp", x => x.ReturnDetailTempID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Rental",
                 columns: table => new
                 {
                     RentalID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RentalDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CustomerID = table.Column<int>(type: "int", nullable: false)
+                    CustomerID = table.Column<int>(type: "int", nullable: false),
+                    CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerSurname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HouseID = table.Column<int>(type: "int", nullable: false),
+                    HouseName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -89,6 +65,12 @@ namespace AppRH.Migrations
                         principalTable: "Customer",
                         principalColumn: "CustomerID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Rental_House_HouseID",
+                        column: x => x.HouseID,
+                        principalTable: "House",
+                        principalColumn: "HouseID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -98,7 +80,11 @@ namespace AppRH.Migrations
                     ReturnID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ReturnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CustomerID = table.Column<int>(type: "int", nullable: false)
+                    CustomerID = table.Column<int>(type: "int", nullable: false),
+                    CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerSurname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HouseID = table.Column<int>(type: "int", nullable: false),
+                    HouseName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -109,59 +95,11 @@ namespace AppRH.Migrations
                         principalTable: "Customer",
                         principalColumn: "CustomerID",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RentalDetail",
-                columns: table => new
-                {
-                    RentalDetailID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RentalID = table.Column<int>(type: "int", nullable: false),
-                    HouseID = table.Column<int>(type: "int", nullable: false),
-                    HouseName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RentalDetail", x => x.RentalDetailID);
                     table.ForeignKey(
-                        name: "FK_RentalDetail_House_HouseID",
+                        name: "FK_Return_House_HouseID",
                         column: x => x.HouseID,
                         principalTable: "House",
                         principalColumn: "HouseID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RentalDetail_Rental_RentalID",
-                        column: x => x.RentalID,
-                        principalTable: "Rental",
-                        principalColumn: "RentalID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ReturnDetail",
-                columns: table => new
-                {
-                    ReturnDetailID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ReturnID = table.Column<int>(type: "int", nullable: false),
-                    HouseID = table.Column<int>(type: "int", nullable: false),
-                    HouseName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ReturnDetail", x => x.ReturnDetailID);
-                    table.ForeignKey(
-                        name: "FK_ReturnDetail_House_HouseID",
-                        column: x => x.HouseID,
-                        principalTable: "House",
-                        principalColumn: "HouseID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ReturnDetail_Return_ReturnID",
-                        column: x => x.ReturnID,
-                        principalTable: "Return",
-                        principalColumn: "ReturnID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -171,14 +109,9 @@ namespace AppRH.Migrations
                 column: "CustomerID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RentalDetail_HouseID",
-                table: "RentalDetail",
+                name: "IX_Rental_HouseID",
+                table: "Rental",
                 column: "HouseID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RentalDetail_RentalID",
-                table: "RentalDetail",
-                column: "RentalID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Return_CustomerID",
@@ -186,41 +119,24 @@ namespace AppRH.Migrations
                 column: "CustomerID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ReturnDetail_HouseID",
-                table: "ReturnDetail",
+                name: "IX_Return_HouseID",
+                table: "Return",
                 column: "HouseID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ReturnDetail_ReturnID",
-                table: "ReturnDetail",
-                column: "ReturnID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "RentalDetail");
-
-            migrationBuilder.DropTable(
-                name: "RentalDetailTemp");
-
-            migrationBuilder.DropTable(
-                name: "ReturnDetail");
-
-            migrationBuilder.DropTable(
-                name: "ReturnDetailTemp");
-
-            migrationBuilder.DropTable(
                 name: "Rental");
-
-            migrationBuilder.DropTable(
-                name: "House");
 
             migrationBuilder.DropTable(
                 name: "Return");
 
             migrationBuilder.DropTable(
                 name: "Customer");
+
+            migrationBuilder.DropTable(
+                name: "House");
         }
     }
 }

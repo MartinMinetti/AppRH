@@ -28,14 +28,11 @@ namespace AppRH.Models
         public byte[]? PhotoHouse { get; set; }
 
        
+       
         public bool EstaAlquilada { get; set; }
 
         public bool IsDeleted  { get; set; }
 
 
-
-        public virtual  ICollection<RentalDetail>? RentalDetails { get; set; }
-        
-        public virtual ICollection<ReturnDetail>? ReturnDetails { get; set; }
     }
 }

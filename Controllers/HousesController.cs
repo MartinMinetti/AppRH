@@ -186,7 +186,7 @@ namespace AppRH.Controllers
             var house = await _context.House.FindAsync(id);
             if (house != null)
             {
-                var houseAlquilada = (from a in _context.RentalDetail where a.HouseID == id select a).ToList();
+                var houseAlquilada = (from a in _context.Rental where a.HouseID == id select a).ToList();
                 if (houseAlquilada.Count == 0)  
                 {
                     _context.House.Remove(house);

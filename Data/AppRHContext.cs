@@ -18,13 +18,6 @@ using AppRH.Models;
 
         public DbSet<AppRH.Models.Rental>? Rental { get; set; }
 
-        public DbSet<AppRH.Models.RentalDetail>? RentalDetail { get; set; }
-
-        public DbSet<AppRH.Models.RentalDetailTemp>? RentalDetailTemp { get; set; }
-
         public DbSet<AppRH.Models.Return>? Return { get; set; }
 
-        public DbSet<AppRH.Models.ReturnDetail>? ReturnDetail { get; set; }
-
-        public DbSet<AppRH.Models.ReturnDetailTemp>? ReturnDetailTemp { get; set; }
     }
