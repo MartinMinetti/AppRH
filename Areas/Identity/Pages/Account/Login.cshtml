@@ -5,12 +5,14 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
-<div class="row">
+<body class="fondo-login">
+
+<h1 class="text-white">Iniciar sesión</h1>
+<div class="row text-login">
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
+                <h2 class="text-white">Use una cuenta local.</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-floating">
@@ -27,22 +29,23 @@
                     <div class="checkbox">
                         <label asp-for="Input.RememberMe" class="form-label">
                             <input class="form-check-input" asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            @* @Html.DisplayNameFor(m => m.Input.RememberMe) *@
+                            Recordarme
                         </label>
                     </div>
                 </div>
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Iniciar sesión</button>
                 </div>
-                <div>
+                <div class="text-center">
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        <a id="forgot-password" asp-page="./ForgotPassword" class="text-dark">¿Olvidaste tu contraseña?</a>
                     </p>
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-dark">Registrar un nuevo usuario</a>
                     </p>
                     <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation" class="text-dark">Reenviar correo electrónico de confirmación</a>
                     </p>
                 </div>
             </form>
@@ -50,15 +53,15 @@
     </div>
     <div class="col-md-6 col-md-offset-2">
         <section>
-            <h3>Use another service to log in.</h3>
+            <h3>Utilice otro servicio para iniciar sesión.</h3>
             <hr />
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
                     <div>
                         <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
+                            No hay servicios de autenticación externos configurados. Mira este <a href="https://go.microsoft.com/fwlink/?LinkID=532715">artículo
+                            sobre la configuración de esta aplicación ASP.NET para admitir el inicio de sesión a través de servicios externos</a>.
                         </p>
                     </div>
                 }
@@ -83,3 +86,5 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
+</body>
