@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1sGD0XiGOGv3eALxwx59L1QgQYOQ+zyJeOGseWBIzxE=",
+  "Hash": "hpp54SGSgqLkVOIiB6hwVeHCQxok3bN9qhPLERalJJ4=",
   "Source": "AppRH",
   "BasePath": "_content/AppRH",
   "Mode": "Default",
@@ -102,23 +102,6 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\Martin\\Desktop\\AppRH\\wwwroot\\img\\17147-gris.jpg",
-      "SourceId": "AppRH",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Martin\\Desktop\\AppRH\\wwwroot\\",
-      "BasePath": "_content/AppRH",
-      "RelativePath": "img/17147-gris.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\17147-gris.jpg"
-    },
-    {
       "Identity": "C:\\Users\\Martin\\Desktop\\AppRH\\wwwroot\\img\\17155-gris.jpg",
       "SourceId": "AppRH",
       "SourceType": "Discovered",
@@ -134,40 +117,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\17155-gris.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\Martin\\Desktop\\AppRH\\wwwroot\\img\\17159-gris.jpg",
-      "SourceId": "AppRH",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Martin\\Desktop\\AppRH\\wwwroot\\",
-      "BasePath": "_content/AppRH",
-      "RelativePath": "img/17159-gris.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\17159-gris.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\Martin\\Desktop\\AppRH\\wwwroot\\img\\17163-gris.jpg",
-      "SourceId": "AppRH",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Martin\\Desktop\\AppRH\\wwwroot\\",
-      "BasePath": "_content/AppRH",
-      "RelativePath": "img/17163-gris.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\17163-gris.jpg"
     },
     {
       "Identity": "C:\\Users\\Martin\\Desktop\\AppRH\\wwwroot\\img\\17182-gris.jpg",
@@ -236,6 +185,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\casitablanca.png"
+    },
+    {
+      "Identity": "C:\\Users\\Martin\\Desktop\\AppRH\\wwwroot\\img\\create.jpg",
+      "SourceId": "AppRH",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Martin\\Desktop\\AppRH\\wwwroot\\",
+      "BasePath": "_content/AppRH",
+      "RelativePath": "img/create.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\create.jpg"
     },
     {
       "Identity": "C:\\Users\\Martin\\Desktop\\AppRH\\wwwroot\\img\\gris1.jpg",
