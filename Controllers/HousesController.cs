@@ -163,7 +163,7 @@ namespace AppRH.Controllers
                 else
                 {
                     house.IsDeleted = true; 
-                    house.HouseName = "Eliminada";
+                    house.HouseName = "ELIMINADA";
                     _context.Update(house);
                     await _context.SaveChangesAsync();
                 }             

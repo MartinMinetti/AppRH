@@ -9,13 +9,13 @@ namespace AppRH.Models
         public int CustomerID { get; set; }
         
 
-        [Display(Name = "Nombre del Cliente")]
+        [Display(Name = "Nombre del cliente")]
         [Required(ErrorMessage = "Este valor es obligatorio.")]
         [MaxLength(150, ErrorMessage = "El largo maximo es de {0} caracteres.")]
         public string? CustomerName { get; set; }
 
 
-        [Display(Name = "Apellido del Cliente")]
+        [Display(Name = "Apellido del cliente")]
         [Required(ErrorMessage = "Este valor es obligatorio.")]
         [MaxLength(150, ErrorMessage = "El largo maximo es de {0} caracteres.")]
         public string? CustomerSurname { get; set; }
@@ -27,7 +27,7 @@ namespace AppRH.Models
         public string? CustomerDNI { get; set; }
 
 
-        [Display(Name = "Fecha de Nacimiento")]
+        [Display(Name = "Fecha de nacimiento")]
         [DataType(DataType.Date)]
         public DateTime CustomerBirthDate { get; set; }
 

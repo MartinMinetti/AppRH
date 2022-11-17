@@ -11,12 +11,12 @@
     <meta name="viewport" content="width=device-width" />
     <title>Edit</title>
 </head>
-<body>
+<body class="fondo-edit">
 
-<h4>Editar Cliente</h4>
+<h4 class="titulo-edit">Editar cliente</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row text-edit">
+    <div class="col-md-4 ">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CustomerID" />
@@ -48,7 +48,7 @@
 </div>
 
 <div>
-    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+    <a asp-action="Index" class="btn btn-secondary text-edit">Volver</a>
 </div>
 
 </body>

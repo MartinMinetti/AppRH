@@ -11,12 +11,12 @@
     <meta name="viewport" content="width=device-width" />
     <title>Details</title>
 </head>
-<body>
+<body class="fondo-details">
 
-<div>
-    <h4>Detalles de la Devolución</h4>
+<div >
+    <p class="text-details">Detalles de la devolución</p>
     <hr />
-    <dl class="row d-flex justify-content-center">
+    <dl class="row d-flex justify-content-center texto-detalles">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ReturnDate)
         </dt>
@@ -24,19 +24,15 @@
             @Html.DisplayFor(model => model.ReturnDate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CustomerName)
+            @* @Html.DisplayNameFor(model => model.CustomerName) *@
+            Cliente
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CustomerName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CustomerSurname)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CustomerSurname)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Customer)
+            @* @Html.DisplayNameFor(model => model.Customer) *@
+            DNI
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Customer.CustomerDNI)
@@ -46,12 +42,6 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.HouseName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.House)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.House.HouseName)
         </dd>
     </dl>
 </div>

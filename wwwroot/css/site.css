@@ -47,12 +47,29 @@ width: 2%;
   background-size: cover; 
 }
 
+.text-index{
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 
 .fondo-create{
-  background-image: url(../img/gris6.jpg);
+  background-image: url(../img/create.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; 
+}
+
+.titulo-create{
+  text-align: left;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(255, 255, 255);
+  font-size: 40px;
+  text-shadow: -1.5px -1.5px 1px rgb(7, 4, 4);
+}
+
+.text-create{
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: whitesmoke;
 }
 
 .fondo-edit{
@@ -60,4 +77,36 @@ width: 2%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; 
+}
+
+.titulo-edit{
+  text-align: left;
+  font-family:Arial, Helvetica, sans-serif;
+  color: rgb(0, 0, 0);
+  font-size: 40px;
+  text-shadow: -1.5px -1.5px 1px rgb(59, 59, 59);
+}
+
+.text-edit{
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+  
+}
+
+.fondo-details{
+  background-image: url(../img/gris5.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; 
+}
+
+.text-details{
+  text-align: center;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: rgba(0, 0, 0, 0.89);
+  font-size: 40px;
+  text-shadow: -1.5px -1.5px 1px rgb(53, 27, 27);
+}
+
+.texto-detalles{
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }

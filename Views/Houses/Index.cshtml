@@ -13,9 +13,9 @@
 </head>
 <body class="fondo-index">
 <p class="d-flex justify-content-end">
-    <a asp-action="Create" class="btn btn-info">Agregar Casa</a>
+    <a asp-action="Create" class="btn btn-info text-index">Agregar casa</a>
 </p>
-<table class="table table-dark table-sm">
+<table class="table table-dark table-sm text-index">
     <thead>
         <tr>
             <th>
@@ -29,7 +29,7 @@
             </th>
             <th>
                 @* @Html.DisplayNameFor(model => model.EstaAlquilada) *@
-                Casa Disponible
+                Casa disponible
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PhotoHouse)
@@ -51,7 +51,7 @@
             </td>
                <td>
                 @* @Html.DisplayFor(modelItem => item.EstaAlquilada) *@
-                @(item.EstaAlquilada?"No":"Si")
+                @(item.EstaAlquilada?"NO":"SI")
             </td>
             <td>
                         @{

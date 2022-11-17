@@ -8,7 +8,7 @@ namespace AppRH.Models
         public int RentalID { get; set; }
 
 
-        [Display(Name = "Fecha de Alquiler")]
+        [Display(Name = "Fecha de alquiler")]
         [DataType(DataType.Date)]
         public DateTime RentalDate { get; set; }
 
@@ -18,11 +18,11 @@ namespace AppRH.Models
         public int CustomerID { get; set; }
 
 
-        [Display(Name = "Nombre Cliente")]
+        [Display(Name = "Nombre cliente")]
         public string? CustomerName { get; set; }
 
 
-        [Display(Name = "Apellido Cliente")]
+        [Display(Name = "Apellido cliente")]
         public string? CustomerSurname { get; set; }
         public virtual Customer? Customer { get; set; }
 
@@ -31,7 +31,7 @@ namespace AppRH.Models
         public int HouseID { get; set; }
 
 
-        [Display(Name = "Nombre de la Casa")]
+        [Display(Name = "Nombre de la casa")]
         public string? HouseName { get; set; }
         public virtual House? House { get; set; }
         

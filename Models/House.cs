@@ -8,7 +8,7 @@ namespace AppRH.Models
         public int HouseID { get; set; }
 
 
-        [Display(Name = "Nombre de la Casa")]
+        [Display(Name = "Nombre de la casa")]
         [Required(ErrorMessage = "Este valor es obligatorio.")]
         [MaxLength(100, ErrorMessage = "El largo maximo es de {0} caracteres.")]
         public string? HouseName { get; set; }
@@ -19,12 +19,12 @@ namespace AppRH.Models
         public string? HouseAddress { get; set; }
 
 
-        [Display(Name = "Nombre del Dueño")]
+        [Display(Name = "Nombre del dueño")]
         [MaxLength(150, ErrorMessage = "El largo maximo es de {0} caracteres.")]
         public string? OwnerHouse { get; set; }
 
 
-        [Display(Name = "Foto de la Casa")]
+        [Display(Name = "Foto de la casa")]
         public byte[]? PhotoHouse { get; set; }
 
        
