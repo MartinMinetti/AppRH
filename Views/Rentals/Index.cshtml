@@ -13,9 +13,9 @@
 </head>
 <body>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-info">Nuevo Alquiler</a>
 </p>
-<table class="table">
+<table class="table table-dark table-sm">
     <thead>
         <tr>
             <th>
@@ -43,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.HouseName)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.RentalID">Details</a> 
+                <a asp-action="Details" asp-route-id="@item.RentalID" class="btn btn-warning">Detalles</a> 
             </td>
         </tr>
 }

@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
 </head>
-<body>
+<body class="fondo-index">
 <p class="d-flex justify-content-end">
     <a asp-action="Create" class="btn btn-info">Agregar Casa</a>
 </p>
@@ -50,7 +50,8 @@
                 @Html.DisplayFor(modelItem => item.OwnerHouse)
             </td>
                <td>
-                @Html.DisplayFor(modelItem => item.EstaAlquilada)
+                @* @Html.DisplayFor(modelItem => item.EstaAlquilada) *@
+                @(item.EstaAlquilada?"No":"Si")
             </td>
             <td>
                         @{

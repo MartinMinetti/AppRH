@@ -26,23 +26,6 @@ namespace AppRH.Controllers
                           Problem("Entity set 'AppRHContext.House'  is null.");
         }
 
-        // GET: Houses/Details/5
-        // public async Task<IActionResult> Details(int? id)
-        // {
-        //     if (id == null || _context.House == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     var house = await _context.House
-        //         .FirstOrDefaultAsync(m => m.HouseID == id);
-        //     if (house == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     return View(house);
-        // }
 
         // GET: Houses/Create
         public IActionResult Create()
@@ -157,33 +140,15 @@ namespace AppRH.Controllers
             return View(house);
         }
 
-        // GET: Houses/Delete/5
-        // public async Task<IActionResult> Delete(int? id)
-        // {
-        //     if (id == null || _context.House == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     var house = await _context.House
-        //         .FirstOrDefaultAsync(m => m.HouseID == id);
-        //     if (house == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     return View(house);
-        // }
-
-        // POST: Houses/Delete/5
-        // [HttpPost, ActionName("Delete")]
-        // [ValidateAntiForgeryToken]
-
 
 
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var house = await _context.House.FindAsync(id);
+            if (house.EstaAlquilada == true)
+            {
+                return RedirectToAction(nameof(Index));
+            }
             if (house != null)
             {
                 var houseAlquilada = (from a in _context.Rental where a.HouseID == id select a).ToList();

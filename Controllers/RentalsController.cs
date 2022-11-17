@@ -49,7 +49,8 @@ namespace AppRH.Controllers
         public IActionResult Create()
         {
             ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "CustomerName");
-            ViewData["HouseID"] = new SelectList(_context.House, "HouseID", "HouseName");
+            // ViewData["HouseID"] = new SelectList(_context.House, "HouseID", "HouseName");
+            ViewData["HouseID"] = new SelectList(_context.House.Where(x => x.EstaAlquilada == false && x.IsDeleted == false), "HouseID", "HouseName");
             return View();
         }
 
@@ -81,99 +82,7 @@ namespace AppRH.Controllers
             return View(rental);
         }
 
-        // GET: Rentals/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Rental == null)
-            {
-                return NotFound();
-            }
 
-            var rental = await _context.Rental.FindAsync(id);
-            if (rental == null)
-            {
-                return NotFound();
-            }
-            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "CustomerDNI", rental.CustomerID);
-            ViewData["HouseID"] = new SelectList(_context.House, "HouseID", "HouseName", rental.HouseID);
-            return View(rental);
-        }
-
-        // POST: Rentals/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RentalID,RentalDate,CustomerID,CustomerName,CustomerSurname,HouseID,HouseName")] Rental rental)
-        {
-            if (id != rental.RentalID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(rental);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RentalExists(rental.RentalID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "CustomerDNI", rental.CustomerID);
-            ViewData["HouseID"] = new SelectList(_context.House, "HouseID", "HouseName", rental.HouseID);
-            return View(rental);
-        }
-
-        // GET: Rentals/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Rental == null)
-            {
-                return NotFound();
-            }
-
-            var rental = await _context.Rental
-                .Include(r => r.Customer)
-                .Include(r => r.House)
-                .FirstOrDefaultAsync(m => m.RentalID == id);
-            if (rental == null)
-            {
-                return NotFound();
-            }
-
-            return View(rental);
-        }
-
-        // POST: Rentals/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Rental == null)
-            {
-                return Problem("Entity set 'AppRHContext.Rental'  is null.");
-            }
-            var rental = await _context.Rental.FindAsync(id);
-            if (rental != null)
-            {
-                _context.Rental.Remove(rental);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
 
         private bool RentalExists(int id)
         {

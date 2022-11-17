@@ -1,7 +1,7 @@
 @model AppRH.Models.Return
 
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 
 <!DOCTYPE html>
@@ -14,9 +14,9 @@
 <body>
 
 <div>
-    <h4>Return</h4>
+    <h4>Detalles de la Devolución</h4>
     <hr />
-    <dl class="row">
+    <dl class="row d-flex justify-content-center">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ReturnDate)
         </dt>
@@ -56,8 +56,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ReturnID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
 </div>
 </body>
 </html>

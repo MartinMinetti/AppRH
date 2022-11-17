@@ -32,3 +32,32 @@ body {
 .logo-navbar{
 width: 2%;
 }
+
+.imghouse{
+  width: 100px;
+  height: 100px;
+}
+
+
+
+.fondo-index{
+  background-image: url(../img/gris3.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; 
+}
+
+
+.fondo-create{
+  background-image: url(../img/gris6.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; 
+}
+
+.fondo-edit{
+  background-image: url(../img/gris1.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; 
+}

@@ -26,23 +26,7 @@ namespace AppRH.Controllers
                           Problem("Entity set 'AppRHContext.Customer'  is null.");
         }
 
-        // GET: Customers/Details/5
-        // public async Task<IActionResult> Details(int? id)
-        // {
-        //     if (id == null || _context.Customer == null)
-        //     {
-        //         return NotFound();
-        //     }
 
-        //     var customer = await _context.Customer
-        //         .FirstOrDefaultAsync(m => m.CustomerID == id);
-        //     if (customer == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     return View(customer);
-        // }
 
         // GET: Customers/Create
         public IActionResult Create()
@@ -127,23 +111,7 @@ namespace AppRH.Controllers
             return View(customer);
         }
 
-        // GET: Customers/Delete/5
-        // public async Task<IActionResult> Delete(int? id)
-        // {
-        //     if (id == null || _context.Customer == null)
-        //     {
-        //         return NotFound();
-        //     }
 
-        //     var customer = await _context.Customer
-        //         .FirstOrDefaultAsync(m => m.CustomerID == id);
-        //     if (customer == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     return View(customer);
-        // }
 
         // POST: Customers/Delete/5
         // [HttpPost, ActionName("Delete")]
