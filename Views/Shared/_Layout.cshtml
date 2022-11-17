@@ -27,18 +27,33 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Houses" asp-action="Index">Casas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Index">Clientes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Rentals" asp-action="Index">Alquileres</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Returns" asp-action="Index">Devoluciones</a>
-                        </li>
+                        @{                     
+                            if(User.Identity.IsAuthenticated){
+                                    <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Houses" asp-action="Index">Casas</a>
+                                    </li> 
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Index">Clientes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Rentals" asp-action="Index">Alquileres</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Returns" asp-action="Index">Devoluciones</a>
+                                    </li>
+                                    <li class="nav-item">
+                                            <a class="btn btn-outline-danger" asp-area="Identity" asp-page="/Account/Logout">Cerrar perfil</a>
+                                    </li>
+                            }
+                            else{
+                                    <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Houses" asp-action="Index">Casas</a>
+                                    </li>
+                                    <li class="nav-item espacio-authorize">
+                                    <a class="btn btn-outline-dark " asp-area="Identity" asp-page="/Account/Login">Iniciar sesión</a>
+                                    </li>
+                            }
+                       }
                     </ul>
                 </div>
             </div>

@@ -12,9 +12,17 @@
     <title>Index</title>
 </head>
 <body>
-<p class="d-flex justify-content-end">
+
+
+@if(User.Identity.IsAuthenticated)
+{<p class="d-flex justify-content-end">
     <a asp-action="Create" class="btn btn-info">Agregar Casa</a>
-</p>
+</p>   
+}
+else{
+
+}
+
 <table class="table table-dark table-sm">
     <thead>
         <tr>
@@ -38,33 +46,62 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.HouseName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HouseAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OwnerHouse)
-            </td>
-               <td>
-                @Html.DisplayFor(modelItem => item.EstaAlquilada)
-            </td>
-            <td>
-                        @{
-                            var base64 = Convert.ToBase64String(item.PhotoHouse);
-                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                        }
-                        <img src="@imgSrc" class="imghouse" />
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.HouseID" class="btn btn-warning">Editar</a> |
-                <a onclick="eliminarCasa(@item.HouseID)" class="btn btn-danger">Borrar</a>
-            </td>
-        </tr>
-}
+        @if (User.Identity.IsAuthenticated)
+        {
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HouseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HouseAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OwnerHouse)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstaAlquilada)
+                    </td>
+                    <td>
+                                @{
+                                    var base64 = Convert.ToBase64String(item.PhotoHouse);
+                                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                }
+                                <img src="@imgSrc" class="imghouse" />
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.HouseID" class="btn btn-warning">Editar</a> |
+                        <a onclick="eliminarCasa(@item.HouseID)" class="btn btn-danger">Borrar</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+             @foreach (var item in Model.Where(x => x.EstaAlquilada == false && x.IsDeleted == false)) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HouseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HouseAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OwnerHouse)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstaAlquilada)
+                    </td>
+                    <td>
+                                @{
+                                    var base64 = Convert.ToBase64String(item.PhotoHouse);
+                                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                }
+                                <img src="@imgSrc" class="imghouse" />
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
 

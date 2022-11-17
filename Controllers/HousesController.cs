@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AppRH.Controllers
 {
-    [Authorize]
     public class HousesController : Controller
     {
         private readonly AppRHContext _context;
