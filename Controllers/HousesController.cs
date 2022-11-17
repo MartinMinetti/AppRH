@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AppRH.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AppRH.Controllers
 {
+    [Authorize]
     public class HousesController : Controller
     {
         private readonly AppRHContext _context;
